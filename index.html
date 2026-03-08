@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Feliz Día de la Mujer, Nancy</title>
+  <meta name="description" content="Página especial con estilo flores vintage por el Día de la Mujer para Nancy." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --paper1:#fbf3e7;
+      --paper2:#f6ead8;
+      --ink:#2a2232;
+      --muted:#5a4a61;
+
+      --rose:#b84a6b;
+      --rose2:#d88aa0;
+      --sage:#6f8a77;
+      --gold:#b08b57;
+
+      --stroke: rgba(42,34,50,.14);
+      --shadow: 0 18px 40px rgba(21, 12, 18, .18);
+      --shadowSoft: 0 10px 24px rgba(21, 12, 18, .14);
+
+      --radius: 22px;
+      --radius2: 18px;
+      --ring: 0 0 0 3px rgba(184,74,107,.16);
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+
+    body{
+      margin:0;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+
+      background:
+        radial-gradient(900px 650px at 16% 14%, rgba(184,74,107,.10), transparent 60%),
+        radial-gradient(900px 700px at 84% 22%, rgba(111,138,119,.10), transparent 62%),
+        radial-gradient(900px 700px at 50% 92%, rgba(176,139,87,.10), transparent 64%),
+        linear-gradient(180deg, var(--paper1), var(--paper2));
+
+      overflow-x:hidden;
+      position: relative;
+      isolation: isolate;
+    }
+
+    /* Floral background pattern (SVG repeated) */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background-image: url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'>\
+  <defs>\
+    <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>\
+      <stop offset='0' stop-color='%23d88aa0' stop-opacity='0.55'/>\
+      <stop offset='1' stop-color='%236f8a77' stop-opacity='0.35'/>\
+    </linearGradient>\
+  </defs>\
+  <rect width='260' height='260' fill='none'/>\
+  <g fill='url(%23g)' opacity='0.35'>\
+    <g transform='translate(55 58)'>\
+      <circle cx='0' cy='0' r='6' fill='%23b08b57' fill-opacity='0.35'/>\
+      <ellipse rx='10' ry='4' transform='rotate(0)'/>\
+      <ellipse rx='10' ry='4' transform='rotate(60)'/>\
+      <ellipse rx='10' ry='4' transform='rotate(120)'/>\
+    </g>\
+    <g transform='translate(195 75)'>\
+      <circle cx='0' cy='0' r='6' fill='%23b08b57' fill-opacity='0.35'/>\
+      <ellipse rx='10' ry='4' transform='rotate(20)'/>\
+      <ellipse rx='10' ry='4' transform='rotate(80)'/>\
+      <ellipse rx='10' ry='4' transform='rotate(140)'/>\
+    </g>\
+    <g transform='translate(95 190)'>\
+      <circle cx='0' cy='0' r='6' fill='%23b08b57' fill-opacity='0.35'/>\
+      <ellipse rx='11' ry='4.3' transform='rotate(10)'/>\
+      <ellipse rx='11' ry='4.3' transform='rotate(70)'/>\
+      <ellipse rx='11' ry='4.3' transform='rotate(130)'/>\
+    </g>\
+    <path d='M30 150c18-22 40-22 58 0c-18 22-40 22-58 0z' fill='%236f8a77' fill-opacity='0.22'/>\
+    <path d='M170 210c18-22 40-22 58 0c-18 22-40 22-58 0z' fill='%236f8a77' fill-opacity='0.18'/>\
+  </g>\
+</svg>");
+      background-repeat: repeat;
+      background-size: 260px 260px;
+      opacity: .32;
+      filter: blur(0.15px);
+    }
+
+    /* Paper grain */
+    .grain{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.14;
+      background-image:
+        url('data:image/svg+xml;utf8,\
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220">\
+<filter id="n">\
+  <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>\
+</filter>\
+<rect width="220" height="220" filter="url(%23n)" opacity="0.35"/>\
+</svg>');
+      mix-blend-mode:multiply;
+    }
+
+    /* Falling petals */
+    .petals{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:0;
+      opacity:.95;
+    }
+
+    .petal{
+      position:absolute;
+      top:-70px;
+      left: var(--x);
+      width: var(--s);
+      height: calc(var(--s) * .8);
+      opacity: var(--o);
+      transform: translate3d(0,0,0) rotate(var(--r));
+      animation: fall var(--d) linear infinite;
+      filter: drop-shadow(0 10px 16px rgba(0,0,0,.08));
+    }
+    .petal::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.75), rgba(216,138,160,.55) 42%, rgba(184,74,107,.18) 70%, transparent 74%);
+      transform: rotate(18deg);
+    }
+    .petal::after{
+      content:"";
+      position:absolute;
+      width: 64%;
+      height: 64%;
+      left: 18%;
+      top: 12%;
+      border-radius: 999px;
+      background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.35), transparent 62%);
+      opacity:.85;
+      transform: rotate(-12deg);
+    }
+
+    @keyframes fall{
+      0%{ transform: translate3d(0,0,0) rotate(var(--r)); }
+      100%{ transform: translate3d(calc(var(--dx) * 1px), 120vh, 0) rotate(calc(var(--r) + 200deg)); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .petal{ animation:none !important; }
+    }
+
+    .wrap{
+      width:min(980px, 100%);
+      margin:0 auto;
+      padding: 22px 14px 56px 14px;
+      position:relative;
+      z-index:1;
+    }
+
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(42,34,50,.16);
+      background: rgba(255,255,255,.52);
+      box-shadow: var(--shadowSoft);
+      color: rgba(42,34,50,.78);
+      font-size: 13px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, #fff, rgba(184,74,107,.95) 42%, rgba(184,74,107,.20) 70%);
+      box-shadow: 0 0 18px rgba(184,74,107,.20);
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(42,34,50,.14);
+      background: rgba(255,255,255,.48);
+      box-shadow: var(--shadowSoft);
+      color: rgba(42,34,50,.82);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .hero{
+      border-radius: var(--radius);
+      border: 1px solid rgba(42,34,50,.14);
+      background: rgba(255,255,255,.58);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .ribbon{
+      height: 7px;
+      background: linear-gradient(90deg, rgba(184,74,107,.85), rgba(176,139,87,.70), rgba(111,138,119,.78));
+      opacity:.95;
+    }
+
+    .hero-inner{ padding: 18px 16px 14px 16px; }
+
+    h1{
+      margin: 10px 0 6px 0;
+      font-family: "Playfair Display", serif;
+      font-weight: 700;
+      letter-spacing: -.5px;
+      font-size: 30px;
+      line-height: 1.12;
+      color: rgba(42,34,50,.96);
+    }
+    @media (min-width: 760px){ h1{ font-size: 44px; } }
+
+    .script{
+      margin: 0 0 10px 0;
+      font-family: "Great Vibes", cursive;
+      font-size: 28px;
+      color: rgba(184,74,107,.88);
+      letter-spacing: .2px;
+    }
+    @media (min-width: 760px){ .script{ font-size: 34px; } }
+
+    .subtitle{
+      margin:0 0 12px 0;
+      color: rgba(90,74,97,.92);
+      font-size: 14.8px;
+      line-height: 1.78;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 12px;
+    }
+
+    .btn{
+      appearance:none;
+      border:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      text-decoration:none;
+      font-weight: 800;
+      font-size: 14px;
+      min-height: 44px;
+      cursor:pointer;
+      color: rgba(42,34,50,.92);
+      background: rgba(255,255,255,.70);
+      border: 1px solid rgba(42,34,50,.14);
+      box-shadow: var(--shadowSoft);
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .btn:active{ transform: scale(.99); }
+    .btn:focus{ outline:none; box-shadow: var(--shadowSoft), var(--ring); }
+
+    .btn-primary{
+      color: #fff;
+      background: linear-gradient(135deg, rgba(184,74,107,.95), rgba(216,138,160,.80));
+      border-color: rgba(255,255,255,.25);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding: 0 16px 16px 16px;
+    }
+    @media (min-width: 760px){
+      .grid{ grid-template-columns: 1.1fr .9fr; }
+    }
+
+    .card{
+      background: rgba(255,255,255,.58);
+      border: 1px solid rgba(42,34,50,.12);
+      border-radius: var(--radius2);
+      padding: 14px 14px;
+      box-shadow: var(--shadowSoft);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .card h2{
+      margin: 0 0 8px 0;
+      font-family: "Playfair Display", serif;
+      font-size: 18px;
+      letter-spacing: -.2px;
+      color: rgba(42,34,50,.92);
+    }
+    .card p{
+      margin:0;
+      color: rgba(90,74,97,.92);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(42,34,50,.18), transparent);
+      margin: 10px 0;
+    }
+
+    .quote{
+      margin-top:12px;
+      border-radius: var(--radius2);
+      background:
+        linear-gradient(135deg, rgba(184,74,107,.10), rgba(111,138,119,.08), rgba(176,139,87,.10)),
+        rgba(255,255,255,.58);
+      border: 1px solid rgba(42,34,50,.12);
+      box-shadow: var(--shadow);
+      padding: 16px 16px;
+    }
+    .quote .big{
+      font-family: "Playfair Display", serif;
+      font-size: 16px;
+      line-height: 1.78;
+      margin: 0;
+      color: rgba(42,34,50,.92);
+    }
+    .quote .sig{
+      margin-top:10px;
+      color: rgba(90,74,97,.90);
+      font-size: 13.5px;
+    }
+
+    .cover-preview{
+      margin-top:10px;
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(42,34,50,.12);
+      background: rgba(255,255,255,.55);
+      box-shadow: var(--shadowSoft);
+      padding: 10px;
+    }
+    .cover-preview img{
+      width:100%;
+      height:auto;
+      object-fit: contain;
+      display:block;
+      border-radius: 14px;
+      background: rgba(255,255,255,.30);
+    }
+    .cover-caption{
+      margin-top:10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(42,34,50,.12);
+      background: rgba(255,255,255,.60);
+      box-shadow: var(--shadowSoft);
+      color: rgba(42,34,50,.86);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .video-box{
+      margin-top: 10px;
+      display:flex;
+      justify-content:center;
+    }
+    video{
+      width: min(540px, 92vw);
+      max-height: 52vh;
+      border-radius: 18px;
+      border: 1px solid rgba(42,34,50,.12);
+      background: rgba(0,0,0,.06);
+      box-shadow: var(--shadowSoft);
+    }
+
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (min-width: 760px){
+      .gallery{ grid-template-columns: repeat(4, 1fr); }
+    }
+    .tile{
+      border-radius: 16px;
+      overflow:hidden;
+      border: 1px solid rgba(42,34,50,.12);
+      background: rgba(255,255,255,.48);
+      aspect-ratio: 1/1;
+      box-shadow: 0 12px 26px rgba(0,0,0,.12);
+      position:relative;
+    }
+    .tile img{
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
+      transform: scale(1.01);
+    }
+    .tile::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(255,255,255,.00), rgba(0,0,0,.12));
+      opacity:.25;
+      pointer-events:none;
+    }
+
+    .footer{
+      margin-top: 16px;
+      padding: 14px 2px 30px 2px;
+      color: rgba(90,74,97,.80);
+      font-size: 12.5px;
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="petals" aria-hidden="true" id="petalsLayer"></div>
+
+  <main class="wrap">
+    <div class="topbar">
+      <div class="badge"><span class="dot"></span><span>08 de marzo • Día Internacional de la Mujer</span></div>
+      <div class="chip">Para Nancy ✿</div>
+    </div>
+
+    <section class="hero">
+      <div class="ribbon"></div>
+
+      <div class="hero-inner">
+        <div class="script">Para ti, Nancy…</div>
+        <h1>Feliz Día de la Mujer, Nancy</h1>
+
+        <p class="subtitle">
+          Hoy es un día para reconocer y celebrar a las mujeres.
+          <br/><br/>
+          Que esta fecha te recuerde tu valor, tu fortaleza y todo lo que representas.
+          Que nunca te falten motivos para sonreír, paz en el corazón y metas por cumplir.
+          <br/><br/>
+          Que tu camino esté lleno de bienestar, respeto y oportunidades. ¡Feliz Día de la Mujer!
+        </p>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="goVideoBtn" type="button">Ver el video</button>
+          <button class="btn" id="goPhotosBtn" type="button">Ver fotos</button>
+          <button class="btn" id="shareBtn" type="button">Compartir</button>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <h2>Hoy te celebro</h2>
+          <p>
+            ✦ Por tu fortaleza<br/>
+            ✦ Por tu determinación<br/>
+            ✦ Por tu valentía<br/>
+            ✦ Por tu manera de salir adelante
+          </p>
+          <div class="divider"></div>
+          <p style="margin:0; color: rgba(90,74,97,.92); font-size:12.8px;">
+            Que tengas un día bonito y especial.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Un mensaje para hoy</h2>
+          <p>
+            Que te rodeen buenas noticias, tranquilidad y momentos que te hagan sentir orgullosa.
+            ¡Feliz Día de la Mujer, Nancy!
+          </p>
+          <div class="divider"></div>
+          <p style="margin:0; color: rgba(90,74,97,.92); font-size:12.8px;">
+            — Byron
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="quote">
+      <p class="big">
+        “Que hoy sea un recordatorio de lo valiosa que eres.
+        Feliz Día de la Mujer, Nancy.”
+      </p>
+      <div class="sig">— Byron</div>
+    </div>
+
+    <section class="card" id="cover">
+      <h2>Portada</h2>
+      <p>Una foto especial para abrir esta página.</p>
+
+      <div class="cover-preview">
+        <!-- CAMBIO: ahora se usa extensión MAYÚSCULA -->
+        <img src="01.JPEG" alt="Portada para Nancy">
+        <div class="cover-caption">
+          Feliz Día de la Mujer, Nancy.
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="video">
+      <h2>Video</h2>
+      <p>Un video especial para ti.</p>
+
+      <div class="video-box">
+        <video id="videoPlayer" controls playsinline preload="metadata">
+          <source src="nancy.mp4" type="video/mp4" />
+          Tu navegador no puede reproducir este video.
+        </video>
+      </div>
+
+      <div class="actions" style="margin-top:10px;">
+        <a class="btn btn-primary" href="nancy.mp4" target="_blank" rel="noopener">Abrir video aparte</a>
+        <button class="btn" id="toggleVideoBtn" type="button">Reproducir / Pausar</button>
+      </div>
+    </section>
+
+    <section class="card" id="photos">
+      <h2>Fotos</h2>
+      <p>Momentos bonitos.</p>
+
+      <div class="gallery" aria-label="Galería de fotos">
+        <!-- CAMBIO: ahora se usa extensión MAYÚSCULA -->
+        <div class="tile"><img src="01.JPEG" alt="Foto 1"></div>
+        <div class="tile"><img src="02.JPEG" alt="Foto 2"></div>
+        <div class="tile"><img src="03.JPEG" alt="Foto 3"></div>
+        <div class="tile"><img src="04.JPEG" alt="Foto 4"></div>
+      </div>
+
+      <div class="divider"></div>
+
+      <h2>Mis mejores deseos</h2>
+      <p style="line-height:1.75;">
+        ✦ Salud<br/>
+        ✦ Paz<br/>
+        ✦ Alegría<br/>
+        ✦ Bienestar
+      </p>
+    </section>
+
+    <div class="footer">
+      08/03/2026
+    </div>
+  </main>
+
+  <script>
+    const goVideoBtn = document.getElementById('goVideoBtn');
+    const goPhotosBtn = document.getElementById('goPhotosBtn');
+    const shareBtn = document.getElementById('shareBtn');
+
+    const videoSection = document.getElementById('video');
+    const videoPlayer = document.getElementById('videoPlayer');
+    const toggleVideoBtn = document.getElementById('toggleVideoBtn');
+
+    goVideoBtn.addEventListener('click', () => {
+      videoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      try { videoPlayer.play(); } catch(e) {}
+    });
+
+    goPhotosBtn.addEventListener('click', () => {
+      document.getElementById('photos').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    toggleVideoBtn.addEventListener('click', async () => {
+      try{
+        if(videoPlayer.paused) await videoPlayer.play();
+        else videoPlayer.pause();
+      } catch(e){}
+    });
+
+    shareBtn.addEventListener('click', async () => {
+      const shareData = {
+        title: 'Feliz Día de la Mujer, Nancy',
+        text: 'Feliz Día de la Mujer, Nancy.',
+        url: window.location.href
+      };
+      try{
+        if(navigator.share) await navigator.share(shareData);
+        else{
+          await navigator.clipboard.writeText(window.location.href);
+          alert('Tu navegador no tiene compartir. Copié el enlace al portapapeles.');
+        }
+      } catch(e){}
+    });
+
+    const petalsLayer = document.getElementById('petalsLayer');
+    function rand(min, max){ return min + Math.random() * (max - min); }
+
+    function addPetal(){
+      const p = document.createElement('div');
+      p.className = 'petal';
+
+      const x = rand(0, 100);
+      const s = rand(18, 44);
+      const d = rand(10, 22);
+      const o = rand(0.10, 0.22);
+      const r = rand(-35, 35);
+      const dx = rand(-45, 45);
+
+      p.style.setProperty('--x', x + 'vw');
+      p.style.setProperty('--s', s + 'px');
+      p.style.setProperty('--d', d + 's');
+      p.style.setProperty('--o', o.toFixed(2));
+      p.style.setProperty('--r', r + 'deg');
+      p.style.setProperty('--dx', dx.toFixed(0));
+      p.style.animationDelay = (-Math.random() * d) + 's';
+
+      petalsLayer.appendChild(p);
+    }
+
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const PETALS_COUNT = reduceMotion ? 0 : 26;
+    for(let i=0; i<PETALS_COUNT; i++) addPetal();
+  </script>
+</body>
+</html>
